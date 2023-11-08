@@ -6,6 +6,7 @@ class AppBD:
     def __init__(self): 
         print('Método Construtor')
 #-------------------------------------------------------------------------------------------------------- 
+# Abre conexão com bando de Dados    
     def abrirConexao(self):
         try:         
             self.connection = psycopg2.connect(database="postgres", 

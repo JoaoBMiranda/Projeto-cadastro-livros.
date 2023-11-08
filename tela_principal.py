@@ -1,5 +1,7 @@
-import tkinter as tk
-import crud as crud
+# Importação das bibliotecas tkinter e crud
+#-------------------------------------------------------------------------------------------------------------------------- 
+import tkinter as tk 
+import crud as crud 
 #-------------------------------------------------------------------------------------------------------------------------- 
 #Programa Principal
 #--------------------------------------------------------------------------------------------------------------------------  
@@ -7,13 +9,17 @@ class PrincipalBD:
     def __init__(self, win):
         self.objBD = crud.AppBD()
 #--------------------------------------------------------------------------------------------------------------------------  
+# Rótulo das colunas BD
+#--------------------------------------------------------------------------------------------------------------------------         
         self.lblCodigo  = tk.Label(win, text='Código do Livro:')
         self.lblTitulo  = tk.Label(win, text='Titulo:')
         self.lblEditora = tk.Label(win, text='Editora:')
         self.lblAutor   = tk.Label(win, text='Autor:')
         self.lblPreco   = tk.Label(win, text='Preço de Compra:')
         self.lblPreco2  = tk.Label(win, text='Preço de Venda:')
-#--------------------------------------------------------------------------------------------------------------------------  
+#-------------------------------------------------------------------------------------------------------------------------- 
+# Entrada de Dados
+#--------------------------------------------------------------------------------------------------------------------------          
         self.txtCodigo  = tk.Entry(bd=5)
         self.txtTitulo  = tk.Entry(bd=5)
         self.txtEditora = tk.Entry(bd=5)
@@ -21,13 +27,17 @@ class PrincipalBD:
         self.txtPreco   = tk.Entry(bd=5)
         self.txtPreco2  = tk.Entry(bd=5)
 #--------------------------------------------------------------------------------------------------------------------------  
+# Botão de Rádio
+#--------------------------------------------------------------------------------------------------------------------------  
         self.btnLocalizar = tk.Button(win, text='Localizar', command= self.fLocalizarLivro)
         self.btnCadastrar = tk.Button(win, text='Cadastrar', command= self.fCadastrarLivro) 
         self.btnAtualizar = tk.Button(win, text='Atualizar', command= self.fAtualizarLivro) 
         self.btnExcluir   = tk.Button(win, text='Excluir',   command= self.fExcluirLivro) 
         self.btnLimpar    = tk.Button(win, text='Limpar',    command= self.fLimparTela) 
         self.btnCalcular  = tk.Button(win, text='Calcular',  command= self.fCalcularPrecoVenda) 
-#--------------------------------------------------------------------------------------------------------------------------  
+#-------------------------------------------------------------------------------------------------------------------------- 
+# Estrutura
+#--------------------------------------------------------------------------------------------------------------------------          
         self.lblCodigo.place(x=100, y=50)
         self.txtCodigo.place(x=250, y=50)
 #--------------------------------------------------------------------------------------------------------------------------  
@@ -52,7 +62,9 @@ class PrincipalBD:
         self.btnExcluir.place(x=300, y=400)
         self.btnLimpar.place(x=400, y=400)
         self.btnCalcular.place(x=400 , y=300)
-#--------------------------------------------------------------------------------------------------------------------------  
+#-------------------------------------------------------------------------------------------------------------------------- 
+# Funções de Interação
+#--------------------------------------------------------------------------------------------------------------------------      
     def fLerCampos(self):
         try:    
             codlivro = self.txtCodigo.get()
@@ -145,6 +157,8 @@ class PrincipalBD:
         except Exception as error:
              print('Erro ao calcular e atualizar o preço de venda:', error)
 #--------------------------------------------------------------------------------------------------------------------------
+# Estrutura da Interface
+#--------------------------------------------------------------------------------------------------------------------------  
 janela = tk.Tk()
 principal = PrincipalBD(janela)
 janela.title('Bem Vindo a Tela de Cadastro')

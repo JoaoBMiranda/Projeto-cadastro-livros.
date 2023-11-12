@@ -18,9 +18,46 @@ class AppBD:
                                                port="5432")
             print("Conexão com o Banco de Dados aberta com sucesso!")
             print("\n--------------------------------------------------------------")
+
+            # Ao abrir a conexão, cria a tabela se ela não existir
+            self.criarTabelaLivros()
+
         except (Exception, psycopg2.Error) as error:
             if(self.connection):
                 print('Falha ao se conectar ao banco de dados', error)
+#-------------------------------------------------------------------------------------------------------- 
+# Método para criar a tabela 
+#-------------------------------------------------------------------------------------------------------- 
+    # A tabela só será criada se não existir no banco de dados.
+    def criarTabelaLivros(self):
+        try:
+            with self.connection.cursor() as cursor:
+                # Verificar se a tabela já existe
+                cursor.execute('''SELECT EXISTS (
+                               SELECT 1
+                               FROM   information_schema.tables 
+                               WHERE  table_schema = 'public' 
+                               AND    table_name = 'livros'
+                            )''')
+            tabela_existe = cursor.fetchone()[0]
+
+            if not tabela_existe:
+                # A tabela não existe, então criamos
+                cursor.execute('''CREATE TABLE public."livros" (
+                                  "codlivro" SERIAL PRIMARY KEY,
+                                  "titulo" VARCHAR(255),
+                                  "assunto" VARCHAR(255),
+                                  "editora" VARCHAR(255),
+                                  "autor" VARCHAR(255),
+                                  "preco" NUMERIC,
+                                  "precovenda" NUMERIC
+                               )''')
+                self.connection.commit()
+                print("Tabela 'livros' criada com sucesso!")
+            else:
+                print("A tabela 'livros' já existe.")
+        except (Exception, psycopg2.Error) as error:
+            print('A tabela LIVROS já criada:', error)
 #-------------------------------------------------------------------------------------------------------- 
 # Método para inserir dados na tabela 
 #-------------------------------------------------------------------------------------------------------- 
